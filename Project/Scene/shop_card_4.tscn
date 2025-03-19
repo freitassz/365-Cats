@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq2tuks2ety28"]
+
+[ext_resource type="Texture2D" uid="uid://bejnlmcsj4wjr" path="res://Assets/Objects/Card_Cat_Sandbox.png" id="1_jpnbh"]
+[ext_resource type="Script" path="res://shop_card_4.gd" id="2_p8s6h"]
+[ext_resource type="FontFile" uid="uid://dqw4hgc6fuisg" path="res://Project/Scene/ascii-sector-16x16-tileset.ttf" id="3_6ybpb"]
+[ext_resource type="PackedScene" uid="uid://drrkfj3bj6pfh" path="res://Project/Scene/cat_sandbox.tscn" id="3_v7an7"]
+
+[node name="shop_card4" type="TextureRect" node_paths=PackedStringArray("label")]
+texture = ExtResource("1_jpnbh")
+script = ExtResource("2_p8s6h")
+label = NodePath("Label")
+sandbox_scene = ExtResource("3_v7an7")
+
+[node name="Upgrade_4" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 44.0
+offset_bottom = 46.0
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+layout_mode = 0
+offset_left = 1.0
+offset_top = 8.0
+offset_right = 113.0
+offset_bottom = 24.0
+scale = Vector2(0.4, 0.4)
+theme_override_colors/font_color = Color(0, 0.966502, 0.33997, 1)
+theme_override_fonts/font = ExtResource("3_6ybpb")
+theme_override_font_sizes/font_size = 16
+text = "<value>"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Upgrade_4" to="." method="_on_upgrade_4_pressed"]
+[connection signal="pressed" from="Upgrade_4" to="." method="_on_upgrade_3_pressed"]
