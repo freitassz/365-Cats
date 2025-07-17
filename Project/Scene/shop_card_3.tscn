@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://xygev10xvul5"]
+
+[ext_resource type="Texture2D" uid="uid://2jj7m6mui5lf" path="res://Assets/Objects/Card_Cat_Poster.png" id="1_hls3t"]
+[ext_resource type="Script" path="res://shop_card_3.gd" id="2_dwyge"]
+[ext_resource type="PackedScene" uid="uid://bkm81aytyhdmh" path="res://Project/Scene/cat_poster.tscn" id="3_rucfg"]
+[ext_resource type="FontFile" uid="uid://dqw4hgc6fuisg" path="res://Project/Scene/ascii-sector-16x16-tileset.ttf" id="3_vunfs"]
+
+[node name="shop_card3" type="TextureRect" node_paths=PackedStringArray("label")]
+texture = ExtResource("1_hls3t")
+script = ExtResource("2_dwyge")
+label = NodePath("Label")
+poster_scene = ExtResource("3_rucfg")
+
+[node name="Upgrade_3" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 44.0
+offset_bottom = 46.0
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+layout_mode = 0
+offset_left = 1.0
+offset_top = 8.0
+offset_right = 113.0
+offset_bottom = 24.0
+scale = Vector2(0.4, 0.4)
+theme_override_colors/font_color = Color(0, 0.966502, 0.33997, 1)
+theme_override_fonts/font = ExtResource("3_vunfs")
+theme_override_font_sizes/font_size = 16
+text = "<value>"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Upgrade_3" to="." method="_on_upgrade_3_pressed"]

@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7yqnywks5rqg"]
+
+[ext_resource type="Script" path="res://Project/Script/door_component.gd" id="1_l6j1v"]
+[ext_resource type="Texture2D" uid="uid://dyxy4qjjlxvaa" path="res://Assets/Tile_set/House_Door_16x16.png" id="2_i1yxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kl2ny"]
+size = Vector2(18, 17)
+
+[sub_resource type="Animation" id="Animation_qcb1v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sry47"]
+resource_name = "close"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 6, 5, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_nxsug"]
+resource_name = "open"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6w3tl"]
+_data = {
+"RESET": SubResource("Animation_qcb1v"),
+"close": SubResource("Animation_sry47"),
+"open": SubResource("Animation_nxsug")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w205r"]
+radius = 11.0
+
+[node name="DoorComponent" type="Area2D" node_paths=PackedStringArray("_animation")]
+script = ExtResource("1_l6j1v")
+_animation = NodePath("Animation")
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(0, -24)
+texture = ExtResource("2_i1yxb")
+hframes = 8
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_kl2ny")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6w3tl")
+}
+
+[node name="Area" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+show_behind_parent = true
+position = Vector2(0, 9)
+shape = SubResource("CircleShape2D_w205r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_finished"]
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_area_body_exited"]

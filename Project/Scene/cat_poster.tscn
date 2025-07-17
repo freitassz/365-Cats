@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkm81aytyhdmh"]
+
+[ext_resource type="Script" path="res://Cat_Poster.gd" id="1_pljr1"]
+[ext_resource type="Texture2D" uid="uid://drlw04lsyovfv" path="res://Assets/Objects/Cat_poster.png" id="2_hsq1v"]
+[ext_resource type="Texture2D" uid="uid://bcv8fdrtdlw8g" path="res://Assets/Objects/Cat_Poster.jpg" id="3_vd77s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgc6d"]
+
+[node name="cat_poster" type="Node2D"]
+script = ExtResource("1_pljr1")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_hsq1v")
+offset = Vector2(0, 5)
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+position = Vector2(0, 20)
+shape = SubResource("CircleShape2D_dgc6d")
+
+[node name="Canva" type="CanvasLayer" parent="."]
+scale = Vector2(0.7, 0.7)
+transform = Transform2D(0.7, 0, 0, 0.7, 0, 0)
+
+[node name="CatPicture" type="TextureRect" parent="Canva"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1371.43
+offset_top = -475.429
+offset_right = 628.571
+offset_bottom = 804.571
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_vd77s")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="Area" to="." method="_on_poster_area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_poster_area_body_exited"]

@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://33ng5ki3m7iv"]
+
+[ext_resource type="Script" path="res://Project/Script/pet_character.gd" id="1_4a25y"]
+[ext_resource type="Texture2D" uid="uid://cwtijwkqr6bje" path="res://Assets/Character/Cat_Animation_16x16.png" id="2_bkstj"]
+
+[sub_resource type="Animation" id="Animation_vj2b0"]
+resource_name = "Cat_Idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_1fc5b"]
+resource_name = "Cat_Run"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_sdcgl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_msmb8"]
+_data = {
+"Cat_Idle": SubResource("Animation_vj2b0"),
+"Cat_Run": SubResource("Animation_1fc5b"),
+"RESET": SubResource("Animation_sdcgl")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m8m5d"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ufla8"]
+radius = 11.0
+
+[node name="Pet_Character" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animation", "_walk_timer", "_afk_timer")]
+position = Vector2(0, -4)
+platform_on_leave = 2
+platform_floor_layers = 4294967040
+script = ExtResource("1_4a25y")
+_sprite = NodePath("Texture")
+_animation = NodePath("Animation")
+_walk_timer = NodePath("WalkTimer")
+_afk_timer = NodePath("AfkTimer")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_msmb8")
+}
+autoplay = "Cat_Idle"
+
+[node name="Texture" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("2_bkstj")
+offset = Vector2(0, 4)
+hframes = 6
+vframes = 2
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, 3)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_m8m5d")
+
+[node name="WalkTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfkTimer" type="Timer" parent="."]
+
+[node name="Area" type="Area2D" parent="."]
+position = Vector2(0, -2)
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_ufla8")
+
+[connection signal="timeout" from="WalkTimer" to="." method="_on_walk_timer_timeout"]
+[connection signal="timeout" from="AfkTimer" to="." method="_on_afk_timer_timeout"]
+[connection signal="mouse_entered" from="Area" to="." method="_on_cat_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="." method="_on_cat_area_mouse_exited"]

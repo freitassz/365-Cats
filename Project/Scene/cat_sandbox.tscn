@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://drrkfj3bj6pfh"]
+
+[ext_resource type="Script" path="res://cat_sandbox.gd" id="1_ydq2g"]
+[ext_resource type="Texture2D" uid="uid://r3iismye3ek" path="res://Assets/Objects/Cat_Sandbox_16x16.png" id="2_72v5y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vc585"]
+size = Vector2(16, 14)
+
+[node name="CatSandbox" type="Node2D"]
+script = ExtResource("1_ydq2g")
+
+[node name="StaticObject" type="StaticBody2D" parent="."]
+position = Vector2(0, 5)
+
+[node name="Texture" type="Sprite2D" parent="StaticObject"]
+position = Vector2(0, -5)
+texture = ExtResource("2_72v5y")
+offset = Vector2(0, 5)
+
+[node name="Collision" type="CollisionShape2D" parent="StaticObject"]
+show_behind_parent = true
+shape = SubResource("RectangleShape2D_vc585")

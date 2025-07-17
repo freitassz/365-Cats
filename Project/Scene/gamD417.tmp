@@ -1,0 +1,130 @@
+[gd_scene load_steps=22 format=4 uid="uid://b6bo1o5vbepmr"]
+
+[ext_resource type="PackedScene" uid="uid://c2gktjoll6r83" path="res://Project/Scene/terrain_management.tscn" id="1_k8l0s"]
+[ext_resource type="Texture2D" uid="uid://dud0eijiou1vt" path="res://Assets/Tile_set/Grass_Detail_Shadow_16x16.png" id="2_7g1tl"]
+[ext_resource type="PackedScene" uid="uid://c6kvrjg7v7kvp" path="res://Project/Scene/casa_interior.tscn" id="2_hb1hf"]
+[ext_resource type="PackedScene" uid="uid://bflxtrqu4kcdd" path="res://Project/Scene/base_character.tscn" id="2_smemq"]
+[ext_resource type="Texture2D" uid="uid://d285mb77mdbkt" path="res://Assets/Tile_set/Grass_Detail_16x16.png" id="3_ji30x"]
+[ext_resource type="PackedScene" uid="uid://33ng5ki3m7iv" path="res://Project/Scene/pet_character.tscn" id="3_v5emm"]
+[ext_resource type="PackedScene" uid="uid://b7yqnywks5rqg" path="res://Project/Scene/door_component.tscn" id="7_er6d7"]
+[ext_resource type="Texture2D" uid="uid://c8bwkwnyxt08e" path="res://Assets/Objects/House_16x16.png" id="8_ycrpm"]
+[ext_resource type="PackedScene" uid="uid://bhlln6t54ikjy" path="res://Project/Scene/computer.tscn" id="9_wg086"]
+[ext_resource type="PackedScene" uid="uid://befkcxrptuoe7" path="res://Project/Scene/cat_bowl.tscn" id="10_aapd0"]
+[ext_resource type="PackedScene" uid="uid://bkm81aytyhdmh" path="res://Project/Scene/cat_poster.tscn" id="11_q12yd"]
+[ext_resource type="PackedScene" uid="uid://drrkfj3bj6pfh" path="res://Project/Scene/cat_sandbox.tscn" id="12_uuq4i"]
+[ext_resource type="PackedScene" uid="uid://bp7t5lin8ta6p" path="res://Project/Scene/day_night_filter.tscn" id="13_2coov"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wpwfc"]
+texture = ExtResource("2_7g1tl")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2e57b"]
+sources/0 = SubResource("TileSetAtlasSource_wpwfc")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_awwth"]
+texture = ExtResource("3_ji30x")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 0, 6, 0, 6, 6, -6, 6)
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_uap7r"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_awwth")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwrx4"]
+texture = ExtResource("3_ji30x")
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 2, 12, 2, 12, 8, -12, 8)
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, 12, 0, 12, 8, -12, 8)
+
+[sub_resource type="TileSet" id="TileSet_hu51o"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_gwrx4")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1nkyt"]
+texture = ExtResource("8_ycrpm")
+0:0/size_in_atlas = Vector2i(4, 6)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -20, 30, -20, 30, 32, -30, 32)
+
+[sub_resource type="TileSet" id="TileSet_n3mrc"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_1nkyt")
+
+[node name="game_level" type="Node2D"]
+
+[node name="Terrain_management" parent="." instance=ExtResource("1_k8l0s")]
+z_as_relative = false
+
+[node name="CasaInterior" parent="." instance=ExtResource("2_hb1hf")]
+position = Vector2(99, 1069)
+
+[node name="Decoration" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Grass_Details_Shadow" type="TileMapLayer" parent="Decoration"]
+tile_map_data = PackedByteArray("AAAbABQAAAACAAAAAAArABsAAAACAAAAAAAcABsAAAACAAIAAAAbABcAAAACAAIAAAAqABYAAAACAAIAAAAfABsAAAAAAAAAAAAnABcAAAAAAAAAAAAaABkAAAABAAAAAAAsABYAAAABAAEAAAAeABgAAAABAAEAAAAZABkAAAAAAAEAAAAsABoAAAAAAAEAAAAoABIAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_2e57b")
+
+[node name="Grass_Details_Small" type="TileMapLayer" parent="Decoration"]
+tile_map_data = PackedByteArray("AAAfABsAAAAAAAAAAAAnABcAAAAAAAAAAAAoABgAAAAAAAEAAAAoABIAAAAAAAEAAAAsABoAAAAAAAEAAAAeABgAAAABAAEAAAAsABYAAAABAAEAAAAaABkAAAABAAAAAAAZABkAAAAAAAEAAAAeABMAAAAAAAIAAAAeABQAAAAAAAMAAAAoABwAAAAAAAIAAAAhABoAAAAAAAMAAAAlABgAAAAAAAIAAAAeABYAAAABAAIAAAAnABQAAAABAAIAAAAmABwAAAABAAIAAAAdABwAAAABAAMAAAAbABgAAAABAAMAAAAgABIAAAABAAMAAAAqABkAAAABAAMAAAA=")
+tile_set = SubResource("TileSet_uap7r")
+
+[node name="Grass_Details_Large" type="TileMapLayer" parent="Decoration"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAbABQAAAACAAAAAAArABsAAAACAAAAAAAcABsAAAACAAIAAAAqABYAAAACAAIAAAAbABcAAAACAAIAAAA=")
+tile_set = SubResource("TileSet_hu51o")
+
+[node name="House" type="TileMapLayer" parent="Decoration"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAkABUAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_n3mrc")
+
+[node name="DoorComponent2" parent="Decoration" instance=ExtResource("7_er6d7")]
+position = Vector2(188, 1061)
+_teleport_position = Vector2(584, 394)
+
+[node name="DoorComponent" parent="Decoration" instance=ExtResource("7_er6d7")]
+y_sort_enabled = true
+position = Vector2(584, 368)
+_teleport_position = Vector2(187, 1087)
+
+[node name="Pet_Character" parent="Decoration" instance=ExtResource("3_v5emm")]
+y_sort_enabled = true
+position = Vector2(171, 1157)
+
+[node name="Base_Character" parent="Decoration" instance=ExtResource("2_smemq")]
+position = Vector2(583, 422)
+
+[node name="Computer" parent="Decoration" instance=ExtResource("9_wg086")]
+position = Vector2(245, 1067)
+
+[node name="cat_bowl" parent="Decoration" instance=ExtResource("10_aapd0")]
+position = Vector2(117, 1067)
+
+[node name="cat_Poster" parent="Decoration" instance=ExtResource("11_q12yd")]
+position = Vector2(145, 1050)
+
+[node name="CatSandbox" parent="Decoration" instance=ExtResource("12_uuq4i")]
+visible = false
+position = Vector2(213, 1067)
+
+[node name="DayNightFilter" parent="." instance=ExtResource("13_2coov")]
+show_behind_parent = true
+position = Vector2(-3, 1)
